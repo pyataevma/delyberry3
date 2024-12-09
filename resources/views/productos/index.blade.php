@@ -63,27 +63,19 @@
                     <tr>
                         <td>
                             @if ($producto->imagen)
-                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="Algo" style="width: 100px; height: auto;">
+                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="Algo" style="width: 300px; height: auto;">
                             @else
-                                No Image
+                                No imagen
                             @endif
                         </td>
-                        <td>{{ $producto->nombre }}</td>
+                        <td><a href="{{ route('productos.show', $producto->id) }}">{{ $producto->nombre }}</a></td>
                         <td>{{ $producto->precio }}</td>
                         <td>{{ $producto->descripcion }}</td>
                         <td>
-                            <button onclick="showModifyForm({{ $producto->id }}, '{{ $producto->nombre }}', {{ $producto->precio }}, '{{ $producto->descripcion }}')">Modificar</button>
-                        </td>
-                        <td>
-                            <form action="{{route('productos.destroy', $producto->id) }}" method="POST" style="display: inline-block;">
+                            <form action="{{ route('productos.edit', $producto->id) }}" method="GET" style="display: inline;">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('Are you sure you want to delete this producto?')">Eliminar</button>
+                                <button type="submit">Modificar3</button>
                             </form>
-                        </td>
-                        <td>
-                            <a href="{{ route('productos.show', $producto->id) }}">Ver</a>
-                            <a href="{{ route('productos.edit', $producto->id) }}">Modificar</a>
                             <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -98,7 +90,10 @@
     @if (session('success'))
         <p style="color: green;">{{ session('success') }}</p>
     @endif
-    <a href="{{ route('productos.create') }}" class="btn btn-primary">Add New Producto</a>
-    <button id="toggleFormButton">Add Producto</button>
+    <form action="{{ route('productos.create') }}" method="GET" style="display: inline;">
+        @csrf
+        <button type="submit">Agregar nuevo producto</button>
+    </form>
+
 </body>
 </html>
