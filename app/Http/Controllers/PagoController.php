@@ -20,24 +20,16 @@ class PagoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
-            'precio' => 'required|numeric|min:0',
-            'descripcion' => 'nullable|string|max:1000',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+            'metodo_pago' => 'required|numeric|max:255',
+            'monto' => 'required|numeric|min:0',
+            'estado' => 'nullable|string|max:1000',
+     ]);
 
-
-        $imagePath = null;
-        if ($request->hasFile('imagen')) {
-            $imagePath = $request->file('imagen')->store('pagos', 'public'); // Save to storage/app/public/products
-        }
-
-        Pago::create([
-            'nombre' => $request->nombre,
-            'precio' => $request->precio,
-            'descripcion' => $request->descripcion,
-            'imagen' => $imagePath, // Save the image path
-        ]);
+         Pago::create([
+            'metodo_pago' => $request->metodo_pago,
+            'monto' => $request->monto,
+            'estado' => $request->estado,
+            ]);
 
         // Redirect back to the main page with a success message
         return redirect()->back()->with('success', 'Pago está agregado con exito!');
@@ -59,31 +51,21 @@ class PagoController extends Controller
     {
         // Validate the form data
         $request->validate([
-            'nombre' => 'required|string|max:255',
-            'precio' => 'required|numeric|min:0',
-            'descripction' => 'nullable|string|max:1000',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'metodo_pago' => 'required|numeric|max:255',
+            'monto' => 'required|numeric|min:0',
+            'estado' => 'nullable|string|max:1000',
         ]);
 
         $pago = Pago::findOrFail($id);
 
-        if ($request->hasFile('imagen')) {
-            if ($pago->imagen && Storage::disk('public')->exists($pago->imagen)) {
-                Storage::disk('public')->delete($pago->imagen);
-            }
-
-            $imagePath = $request->file('imagen')->store('pagos', 'public');
-            $pago->imagen = $imagePath;
-        }
-
         $pago->update([
-            'nombre' => $request->nombre,
-            'precio' => $request->precio,
-            'descripcion' => $request->descripcion,
+            'metodo_pago' => $request->metodo_pago,
+            'monto' => $request->monto,
+            'estado' => $request->estado,
         ]);
 
         $pago->save();
-        return redirect()->back()->with('success', 'Product updated successfully!');
+        return redirect()->back()->with('success', 'Pago updated successfully!');
     }
 
     public function destroy($id)
