@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>Delyberry</title>
 </head>
 <body>
@@ -47,7 +46,7 @@
         </nav>
     </header>
 
-    <h1>Lista de productos</h1>
+    <h1>Producto List</h1>
     <div class="panel-body">
 	    <table class="table table-striped table-hover ">
             <thead>
@@ -56,7 +55,6 @@
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Descripcion</th>
-                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,23 +62,22 @@
                     <tr>
                         <td>
                             @if ($producto->imagen)
-                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="width: 300px; height: auto;">
+                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="width: 100px; height: auto;">
                             @else
-                                No imagen
+                                No Image
                             @endif
                         </td>
-                        <td><a href="{{ route('productos.show', $producto->id) }}">{{ $producto->nombre }}</a></td>
+                        <td>{{ $producto->nombre }}</td>
                         <td>{{ $producto->precio }}</td>
                         <td>{{ $producto->descripcion }}</td>
                         <td>
-                            <form action="{{ route('productos.edit', $producto->id) }}" method="GET" style="display: inline;">
-                                @csrf
-                                <button type="submit">Modificar</button>
-                            </form>
-                            <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display: inline;">
+                            <button onclick="showModifyForm({{ $producto->id }}, '{{ $producto->nombre }}', {{ $producto->precio }}, '{{ $producto->descripcion }}')">Modificar</button>
+                        </td>
+                        <td>
+                            <form action="{{route('productos.destroy', $producto->id) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">Eliminar</button>
+                                <button type="submit" onclick="return confirm('Are you sure you want to delete this producto?')">Eliminar</button>
                             </form>
                         </td>
                     </tr>
@@ -91,10 +88,58 @@
     @if (session('success'))
         <p style="color: green;">{{ session('success') }}</p>
     @endif
-    <form action="{{ route('productos.create') }}" method="GET" style="display: inline;">
-        @csrf
-        <button type="submit">Agregar nuevo producto</button>
-    </form>
 
+    <button id="toggleFormButton">Add Producto</button>
+    <!-- Add Producto Form -->
+    <div id="addProductoForm" style="display: none; margin-top: 20px;">
+        <h2>Add a New Producto</h2>
+        <form  action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <br>
+
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" required step="100">
+            <br>
+
+            <label for="descripcion">Descripcion:</label>
+            <textarea id="descripcion" name="descripcion"></textarea>
+            <br>
+            
+            <label for="imagen">Imagen:</label>
+            <input type="file" id="imagen" name="imagen" accept="imagenes/*">
+            <br>
+
+            <button type="submit">Agregar Productoo</button>
+            <button type="button" onclick="hideModifyForm()">Cancelar</button>
+        </form>
+    </div>
+    <div id="modifyProductoForm" style="display: none; margin-top: 20px;">
+        <h2>Modify Producto</h2>
+        <form id="modifyForm" action="" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <label for="modifyNombre">Nombre:</label>
+            <input type="text" id="modifyNombre" name="nombre" required>
+            <br>
+
+            <label for="modifyPrice">Precio:</label>
+            <input type="number" id="modifyPrice" name="precio" required step="0.01">
+            <br>
+
+            <label for="modifyDescription">Descripcion:</label>
+            <textarea id="modifyDescription" name="descripcion"></textarea>
+            <br>
+            
+            <label for="imagen">Imagen:</label>
+            <input type="file" id="imagen" name="imagen" accept="imagenes/*">
+            <br>
+
+            <button type="submit">Guardar</button>
+            <button type="button" onclick="hideModifyForm()">Cancelar</button>
+        </form>
+    </div>
+    <script src="{{ asset('js/toggleForm.js') }}"></script>
 </body>
 </html>
