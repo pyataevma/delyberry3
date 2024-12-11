@@ -5,8 +5,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\PagoController;
 use App\Models\Producto;
-
+use App\Models\Pago;
 
 // Route::get('/', function () {
 //     return view('home');
@@ -14,6 +15,7 @@ use App\Models\Producto;
 
 //Route::resource('productos', ProductoController::class);
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
 Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
 Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
@@ -22,6 +24,8 @@ Route::put('/productos/{id}', [ProductoController::class, 'update'])->name('prod
 Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
 Route::get('/productos/{id}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
 
+
+Route::get('/pagos', [PagoController::class, 'index'])->name('pagos.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

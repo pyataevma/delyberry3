@@ -6,11 +6,11 @@
     <title>Delyberry</title>
 </head>
 <body> 
-    <h1>Agregar producto nuevo</h1>
+    <h1>Agregar pago nuevo</h1>
 
-    <form  action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
+    <form  action="{{ route('pagos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <label for="nombre">Nombre:</label>
+        <label for="nombre">Metodo de pago</label>
         <input type="text" id="nombre" name="nombre" required>
         <br>
 
@@ -26,8 +26,8 @@
         <input type="file" id="imagen" name="imagen" accept="imagenes/*">
         <br>
 
-        <button type="submit">Agregar Producto</button>
-        <a href="{{ route('productos.index') }}">Cancel</a>
+        <button type="submit">Agregar Pago</button>
+        <a href="{{ route('pagos.index') }}">Cancel</a>
     </form>
 </body>
 </html>

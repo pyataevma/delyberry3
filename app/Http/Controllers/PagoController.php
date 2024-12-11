@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pago;
+use Illuminate\Support\Facades\Storage;
 
 class PagoController extends Controller
 {

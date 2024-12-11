@@ -69,7 +69,7 @@
     @if (session('success'))
         <p style="color: green;">{{ session('success') }}</p>
     @endif
-    <form action="{{ route('productos.create') }}" method="GET" style="display: inline;">
+    <form action="{{ route('productos.create') }}" method="GET">
         @csrf
         <button type="submit">Agregar nuevo producto</button>
     </form>

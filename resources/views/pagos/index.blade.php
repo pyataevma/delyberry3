@@ -34,50 +34,34 @@
                         </a></li>
                     @endif
                 @endauth
-                <li><a href="/">Home</a></li>
-                <li><a href="/productos">Productos</a></li>
-                <li><a href="/contact">Contact</a></li>
-                @auth
-                    @if (Auth::user()->role === 'admin')
-                        <li><a href="/admin">Admin Panel</a></li>
-                    @endif
-                @endauth
-                
+                <li><a href="/">Home</a></li>                
             </ul>    
         </nav>
     </header>
 
-    <h1>Lista de productos</h1>
+    <h1>Lista de pagos</h1>
     <div class="panel-body">
 	    <table class="table table-striped table-hover ">
             <thead>
                 <tr>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Descripcion</th>
+                    <th>Metodo de pago</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($productos as $producto)
+                @foreach ($pagos as $pago)
                     <tr>
+                        <td>{{ $pago->metodo_pago }}</a></td>
+                        <td>{{ $pago->monto }}</td>
+                        <td>{{ $pago->estado }}</td>
                         <td>
-                            @if ($producto->imagen)
-                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="width: 300px; height: auto;">
-                            @else
-                                No imagen
-                            @endif
-                        </td>
-                        <td><a href="{{ route('productos.show', $producto->id) }}">{{ $producto->nombre }}</a></td>
-                        <td>{{ $producto->precio }}</td>
-                        <td>{{ $producto->descripcion }}</td>
-                        <td>
-                            <form action="{{ route('productos.edit', $producto->id) }}" method="GET" style="display: inline;">
+                            <form action="{{ route('pagos.edit', $pago->id) }}" method="GET" style="display: inline;">
                                 @csrf
                                 <button type="submit">Modificar</button>
                             </form>
-                            <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display: inline;">
+                            <form action="{{ route('pagos.destroy', $pago->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit">Eliminar</button>
@@ -91,10 +75,9 @@
     @if (session('success'))
         <p style="color: green;">{{ session('success') }}</p>
     @endif
-    <form action="{{ route('productos.create') }}" method="GET" style="display: inline;">
+    <form action="{{ route('pagos.create') }}" method="GET" style="display: inline;">
         @csrf
-        <button type="submit">Agregar nuevo producto</button>
+        <button type="submit">Agregar nuevo pago</button>
     </form>
-
 </body>
 </html>

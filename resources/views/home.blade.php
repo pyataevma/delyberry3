@@ -15,7 +15,7 @@
                         <a href="{{ route('productos.index') }}">Administrar productos</a>
                     </li>
                     <li>
-                        <a href="{{ route('productos.index') }}">Administrar pagos</a>
+                        <a href="{{ route('pagos.index') }}">Administrar pagos</a>
                     </li>
                     <li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
