@@ -48,7 +48,6 @@ header h1 {
   margin: 0;
   font-size: 28px;
   letter-spacing: 2px;
-  display: block;
 }
 
 nav {
@@ -127,6 +126,51 @@ main {
 
 .card-content button:hover {
   background-color: #003f7d;
+}
+
+.product-card {
+  width: 800px; 
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px; 
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap; 
+  background-color: #f4f4f4; 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+  border-radius: 15px;
+}
+
+.product-image {
+  display: flex;
+  width: 40%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.mini-image {
+  display: flex;
+  width: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  width: 55%; 
+  padding: 10px;
+}
+
+.product-name {
+  display:flex;
+  margin-bottom: 5px; 
+}
+
+.product-price {
+  display: flex;
+  font-weight: bold; /* Bold for emphasis */
+  margin-bottom: 10px; /* Margin for spacing */
 }
 
 .form-container {

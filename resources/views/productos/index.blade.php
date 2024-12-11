@@ -11,14 +11,15 @@
     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
         <nav class="-mx-3 flex flex-1 justify-end">
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="{{ route('productos.index') }}">Salir</a></li>
+                <li><a href="/">Volver al inicio</a></li>
                 <li>
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
-                        <button type="submit">Logout</button>
                     </form>
-                </li>           
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Salir de la cuenta
+                    </a>
+                </li>
             </ul>    
         </nav>
     </header>

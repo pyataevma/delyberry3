@@ -17,6 +17,15 @@
                     <li>
                         <a href="{{ route('productos.index') }}">Administrar pagos</a>
                     </li>
+                    <li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                    </li>
+
                 @else
                     <li><a
                         href="{{ route('login') }}"
@@ -49,33 +58,20 @@
     <div> 
         <h1>Welcome to the Home Page</h1>
     </div>
-
-	    <table class="table table-striped table-hover ">
-            <thead>
-                <tr>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Descripcion</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($productos as $producto)
-                    <tr>
-                        <td>
-                            @if ($producto->imagen)
-                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="width: 100px; height: auto;">
-                            @else
-                                No imagen
-                            @endif
-                        </td>
-                        <td><a href="{{ route('productos.show', $producto->id) }}">{{ $producto->nombre }}</a></td>
-                        <td>{{ $producto->precio }}</td>
-                        <td>{{ $producto->descripcion }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        @foreach ($productos as $producto)
+            <section class='product-card'>
+                @if ($producto->imagen)
+                    <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class='product-image'>
+                @else
+                    <div class='product-image'>No imagen<\div>
+                @endif
+                <div class='product-info'>
+                <h3 class='product-name'>{{ $producto->nombre }}</h3>
+                <p class='product-price'>${{ $producto->precio }}</p>
+                <p class='product-description'>{{ $producto->descripcion }}</p>
+                </div>
+            </section>
+        @endforeach
     </div>
 </main>
 </body>
