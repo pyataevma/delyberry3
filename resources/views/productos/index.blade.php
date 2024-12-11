@@ -7,47 +7,24 @@
     <title>Delyberry</title>
 </head>
 <body>
+    @auth
     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
         <nav class="-mx-3 flex flex-1 justify-end">
             <ul>
-                @auth
-                    <li><a
-                        href="{{ url('/dashboard') }}"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                        Dashboard
-                    </a></li>
-                @else
-                    <li><a
-                        href="{{ route('login') }}"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                        Log in
-                    </a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li><a
-                            href="{{ route('register') }}"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Register
-                        </a></li>
-                    @endif
-                @endauth
                 <li><a href="/">Home</a></li>
-                <li><a href="/productos">Productos</a></li>
-                <li><a href="/contact">Contact</a></li>
-                @auth
-                    @if (Auth::user()->role === 'admin')
-                        <li><a href="/admin">Admin Panel</a></li>
-                    @endif
-                @endauth
-                
+                <li><a href="{{ route('productos.index') }}">Salir</a></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>           
             </ul>    
         </nav>
     </header>
-
+    <div>
     <h1>Lista de productos</h1>
+    </div>
     <div class="panel-body">
 	    <table class="table table-striped table-hover ">
             <thead>
@@ -64,7 +41,7 @@
                     <tr>
                         <td>
                             @if ($producto->imagen)
-                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="width: 300px; height: auto;">
+                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="width: 100px; height: auto;">
                             @else
                                 No imagen
                             @endif
@@ -95,6 +72,8 @@
         @csrf
         <button type="submit">Agregar nuevo producto</button>
     </form>
-
+ @else
+    <h1>¡Acceso negado!</h1>
+@endauth
 </body>
 </html>

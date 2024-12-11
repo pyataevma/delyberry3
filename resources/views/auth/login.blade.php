@@ -44,4 +44,5 @@
             </x-primary-button>
         </div>
     </form>
+    <p><a href="/">Volver al inicio</a></p>
 </x-guest-layout>

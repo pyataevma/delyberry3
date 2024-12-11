@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>Delyberry</title>
 </head>
 <body>
@@ -10,12 +11,12 @@
         <nav class="-mx-3 flex flex-1 justify-end">
             <ul>
                 @auth
-                    <li><a
-                        href="{{ url('/dashboard') }}"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                        Dashboard
-                    </a></li>
+                    <li>
+                        <a href="{{ route('productos.index') }}">Administrar productos</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('productos.index') }}">Administrar pagos</a>
+                    </li>
                 @else
                     <li><a
                         href="{{ route('login') }}"
@@ -33,9 +34,6 @@
                         </a></li>
                     @endif
                 @endauth
-                <li><a href="/">Home</a></li>
-                <li><a href="/productos">Productos</a></li>
-                <li><a href="/contact">Contact</a></li>
                 @auth
                     @if (Auth::user()->role === 'admin')
                         <li><a href="/admin">Admin Panel</a></li>
@@ -47,35 +45,38 @@
     </header>
 
     <main>
+    <div class="panel-body">
+    <div> 
+        <h1>Welcome to the Home Page</h1>
+    </div>
 
-<?php
-
-  echo "<h2>Nuestros productos</h2>";
-   
-  if($con!=NULL){
-
-      $consulta = "SELECT * FROM productos";
-
-      $resultado = mysqli_query($con, $consulta);
-  
-      if ($resultado!=NULL) {
-        while($filas = mysqli_fetch_array($resultado)){ 
-          echo "
-            <section class='product-card'>
-              <img src='../imagines/".$filas['imagen']."' alt='".$filas['nombre']."' class='product-image'>
-              <div class='product-info'>
-                <h3 class='product-name'>".$filas['nombre']."</h3>
-                <p class='product-price'>".$filas['precio']."</p>
-                <p class='product-description'>".$filas['descripcion']."</p>
-              </div>
-            </section>
-          ";
-        }
-      }
-  } else {
-    echo "<h1>Algo se rompio</h1>";
-  }
-?>
+	    <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Descripcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($productos as $producto)
+                    <tr>
+                        <td>
+                            @if ($producto->imagen)
+                                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="width: 100px; height: auto;">
+                            @else
+                                No imagen
+                            @endif
+                        </td>
+                        <td><a href="{{ route('productos.show', $producto->id) }}">{{ $producto->nombre }}</a></td>
+                        <td>{{ $producto->precio }}</td>
+                        <td>{{ $producto->descripcion }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </main>
 </body>
 </html>
