@@ -11,7 +11,7 @@
     <form  action="{{ route('pagos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="metodo">Metodo de pago</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="metodo" name="metodo" required>
         <br>
 
         <label for="monto">Monto:</label>
