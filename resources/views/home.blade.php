@@ -55,8 +55,12 @@
 
     <main>
     <div class="panel-body">
-    <div> 
-        <h1>Welcome to the Home Page</h1>
+    <div>
+        @auth
+            <h1>¡Bienvenido, {{ Auth::user()->name }}! </h1>
+        @else
+            <h1>¡Bienvenido a nuestro sitio web, estimado visitante!</h1>
+        @endauth
     </div>
         @foreach ($productos as $producto)
             <section class='product-card'>
