@@ -22,9 +22,9 @@ class PagoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'metodo_pago' => 'required|numeric|max:255',
+            'metodo_pago' => 'required|string|max:255',
             'monto' => 'required|numeric|min:0',
-            'estado' => 'nullable|string|max:1000',
+            'estado' => 'required|string|max:1000',
      ]);
 
          Pago::create([
@@ -53,9 +53,9 @@ class PagoController extends Controller
     {
         // Validate the form data
         $request->validate([
-            'metodo_pago' => 'required|numeric|max:255',
+            'metodo_pago' => 'required|string|max:100',
             'monto' => 'required|numeric|min:0',
-            'estado' => 'nullable|string|max:1000',
+            'estado' => 'required|string|max:100',
         ]);
 
         $pago = Pago::findOrFail($id);

@@ -26,6 +26,12 @@ Route::get('/productos/{id}/edit', [ProductoController::class, 'edit'])->name('p
 
 
 Route::get('/pagos', [PagoController::class, 'index'])->name('pagos.index');
+Route::post('/pagos', [PagoController::class, 'store'])->name('pagos.store');
+Route::get('/pagos/create', [PagoController::class, 'create'])->name('pagos.create');
+Route::delete('/pagos/{id}', [PagoController::class, 'destroy'])->name('pagos.destroy');
+Route::put('/pagos/{id}', [PagoController::class, 'update'])->name('pagos.update');
+Route::get('/pagos/{id}', [PagoController::class, 'show'])->name('pagos.show');
+Route::get('/pagos/{id}/edit', [PagoController::class, 'edit'])->name('pagos.edit');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
