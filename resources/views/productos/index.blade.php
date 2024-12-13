@@ -23,7 +23,7 @@
                 </ul>    
             </nav>
         </header>
-        <form action="{{ route('productos.create') }}" method="GET">
+        <form action="{{ route('productos.create') }}" method="GET" class="button-new">
             @csrf
             <button type="submit">Agregar nuevo producto</button>
         </form>

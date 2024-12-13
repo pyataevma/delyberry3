@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>Delyberry</title>
 </head>
 <body> 
@@ -36,7 +37,7 @@
             <br>
 
             <button type="submit">Agregar Producto</button>
-            <a href="{{ route('productos.index') }}">Cancel</a>
+            <a href="{{ route('productos.index') }}" class="cancel">Volver</a>
         </form>
     </div>
 </body>

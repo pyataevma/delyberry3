@@ -33,7 +33,7 @@
             <br>
 
         <button type="submit">Agregar pago</button>
-            <a href="{{ route('pagos.index') }}" class="cancel">Cancel</a>
+            <a href="{{ route('pagos.index') }}" class="cancel">Volver</a>
         </form>
         </div>
 </body>

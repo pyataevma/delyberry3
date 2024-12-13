@@ -22,7 +22,7 @@
                             @csrf
                         </form>
                         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
+                            Salir de la cuenta
                         </a>
                     </li>
 
